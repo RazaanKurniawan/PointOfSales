@@ -12,7 +12,7 @@ if(is_numeric($paraResult)){
 
         $response = delete('categories', $categoryId);
         if($response){
-            redirect('categories.php', 'Admin berhasil dihapus!');
+            redirect('categories.php', 'Kategori berhasil dihapus!');
         }else{
             redirect('categories.php', 'Ada sesuatu yang salah!');
         }

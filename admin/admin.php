@@ -10,7 +10,7 @@ if (($_SESSION['loggedInUser']['level'] != 'Admin')) {
         <div class="card mt-4 shadow-sm">
             <div class="card-header text-center">
                 <h4 class="mb-0">
-                    Admin/Staff
+                    Administrator/Pekerja
                     <a href="admin-create.php" class="btn btn-primary float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Admin</a>
                 </h4>
             </div>
@@ -34,7 +34,7 @@ if (($_SESSION['loggedInUser']['level'] != 'Admin')) {
                                     <th style="width: 10px;">No.</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Bagian</th>
                                     <th>Status</th>
                                     <th style="width: 145px;">Aksi</th>
                                 </tr>

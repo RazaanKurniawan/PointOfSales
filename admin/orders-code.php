@@ -220,7 +220,7 @@ if (isset($_POST['saveOrder'])) {
         'invoice_no' => $invoice_No,
         'total_amount' => $totalAmount,
         'order_date' => date('Y-m-d'),
-        'order_status' => 'booked',
+        'order_status' => 'Dipesan',
         'payment_mode' => $payment_mode,
         'order_placed_by_id' => $order_placed_by_id
     ];

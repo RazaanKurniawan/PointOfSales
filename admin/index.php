@@ -1,12 +1,12 @@
-<?php include('includes/header.php'); ?>
+<?php include ('includes/header.php'); ?>
 <div class="container-fluid px-4">
     <div class="pcoded-content">
         <div class="pcoded-inner-content">
             <div class="main-body">
                 <div class="page-wrapper">
                     <div class="page-body">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <?php alertMessage(); 
+                        <h1 class="mt-4">Beranda</h1>
+                        <?php alertMessage();
                         date_default_timezone_set('Asia/Jakarta'); ?>
                         <div class="row">
                             <div class="col-md-6 col-xl-3">
@@ -14,7 +14,8 @@
                                     <div class="card-block">
                                         <h6 class="m-b-20">Total Kategori</h6>
                                         <h2 class="text-right">
-                                            <i class="fa fa-fw fas fa-box-open f-left"></i><span><?= getCount('categories'); ?></span>
+                                            <i
+                                                class="fa fa-fw fas fa-box-open f-left"></i><span><?= getCount('categories'); ?></span>
                                         </h2>
                                     </div>
                                 </div>
@@ -22,9 +23,10 @@
                             <div class="col-md-6 col-xl-3">
                                 <div class="card bg-c-green order-card">
                                     <div class="card-block">
-                                        <h6 class="m-b-20">Total Products</h6>
+                                        <h6 class="m-b-20">Total Produk</h6>
                                         <h2 class="text-right">
-                                            <i class="fa fa-fw fa-cube f-left"></i><span><?= getCount('products'); ?></span>
+                                            <i
+                                                class="fa fa-fw fa-cube f-left"></i><span><?= getCount('products'); ?></span>
                                         </h2>
                                     </div>
                                 </div>
@@ -34,42 +36,50 @@
                                     <div class="card-block">
                                         <h6 class="m-b-20">Total Admin</h6>
                                         <h2 class="text-right">
-                                            <i class="fa fa-fw fa-user-tie f-left"></i><span><?= getCount('admin'); ?></span>
+                                            <i
+                                                class="fa fa-fw fa-user-tie f-left"></i><span><?= getCount('admin'); ?></span>
                                         </h2>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xl-3">
+                            <!-- <div class="col-md-6 col-xl-3">
                                 <div class="card bg-c-pink order-card">
                                     <div class="card-block">
-                                        <h6 class="m-b-20">Total Customers</h6>
+                                        <h6 class="m-b-20">Total Pelanggan</h6>
                                         <h2 class="text-right">
-                                            <i class="fa fa-fw fa-user f-left"></i><span><?= getCount('customers'); ?></span>
+                                            <i
+                                                class="fa fa-fw fa-user f-left"></i><span><?= getCount('customers'); ?></span>
                                         </h2>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <hr>
-                                <h4>Orders</h4>
+                                <h4>Pesanan</h4>
                             </div>
                             <div class="col-md-6 col-xl-3">
                                 <div class="card bg-primary order-card">
                                     <div class="card-block">
-                                        <h6 class="m-b-20">Today Orders</h6>
+                                        <h6 class="m-b-20">Produk Terjual Hari Ini</h6>
                                         <h2 class="text-right">
                                             <i class="fa fa-fw fa-clock f-left"></i><span>
                                                 <?php
+                                                // Mengambil tanggal hari ini
                                                 $todayDate = date('Y-m-d');
-                                                $todayOrders = mysqli_query($conn, "SELECT * FROM orders WHERE order_date='$todayDate' ");
-                                                if ($todayOrders) {
-                                                    $totalCountOrders = mysqli_num_rows($todayOrders);
-                                                    echo $totalCountOrders;
-                                                } else {
-                                                    echo "0";
-                                                }
+
+                                                // Query untuk mengambil total produk yang terjual dari setiap pesanan yang dibuat pada tanggal hari ini
+                                                $todayProductsSoldQuery = mysqli_query($conn, "SELECT COUNT(DISTINCT product_id) AS totalProductsSold FROM order_items WHERE DATE(order_date) = '$todayDate'");
+
+                                                // Mengambil hasil query
+                                                $todayProductsSoldData = mysqli_fetch_assoc($todayProductsSoldQuery);
+
+                                                // Mengambil total produk yang terjual hari ini
+                                                $totalProductsSoldToday = $todayProductsSoldData['totalProductsSold'];
+
+                                                // Menampilkan total produk yang terjual hari ini
+                                                echo $totalProductsSoldToday !== null ? $totalProductsSoldToday : "0";
                                                 ?>
                                             </span>
                                         </h2>
@@ -79,15 +89,29 @@
                             <div class="col-md-6 col-xl-3">
                                 <div class="card bg-primary order-card">
                                     <div class="card-block">
-                                        <h6 class="m-b-20">Total Orders</h6>
+                                        <h6 class="m-b-20">Total Produk Yang Terjual</h6>
                                         <h2 class="text-right">
-                                            <i class="fa fa-fw fa-archive f-left"></i><span><?= getCount('orders'); ?></span>
+                                            <i class="fa fa-fw fa-archive f-left"></i><span>
+                                                <?php
+                                                // Query untuk mengambil total produk yang terjual dari setiap pesanan yang dibuat pada tanggal hari ini
+                                                $productsSoldQuery = mysqli_query($conn, "SELECT COUNT(DISTINCT product_id) AS totalProductsSold FROM order_items");
+
+                                                // Mengambil hasil query
+                                                $productsSoldData = mysqli_fetch_assoc($productsSoldQuery);
+
+                                                // Mengambil total produk yang terjual hari ini
+                                                $totalProductsSold = $productsSoldData['totalProductsSold'];
+
+                                                // Menampilkan total produk yang terjual hari ini
+                                                echo $totalProductsSold !== null ? $totalProductsSold : "0";
+                                                ?>
+                                            </span>
                                         </h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row mt-4">
                             <div class="col-md-12">
                                 <div class="card shadow-sm mb-4">
@@ -102,7 +126,8 @@
 
                                         if ($todaySalesQuery && mysqli_num_rows($todaySalesQuery) > 0) { ?>
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-bordered align-items-center justify-content-center">
+                                                <table
+                                                    class="table table-striped table-bordered align-items-center justify-content-center">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
@@ -126,12 +151,15 @@
                                                                 <td><?= $i++ ?></td>
                                                                 <td><?= $productName ?></td>
                                                                 <td><?= $totalSoldToday ?></td>
-                                                                <td>Rp. <?= number_format($totalSalesProductToday, 0, ',', '.') ?></td>
+                                                                <td>Rp.
+                                                                    <?= number_format($totalSalesProductToday, 0, ',', '.') ?>
+                                                                </td>
                                                             </tr>
                                                         <?php } ?>
                                                         <tr>
                                                             <td colspan="3" class="text-end"><b>Total Penghasilan Hari Ini:</b></td>
-                                                            <td><b>Rp. <?= number_format($totalSalesToday, 0, ',', '.') ?></b></td>
+                                                            <td><b>Rp. <?= number_format($totalSalesToday, 0, ',', '.') ?></b>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -169,7 +197,8 @@
                                             $totalIncome += $totalProductPrice;
                                         } ?>
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered align-items-center justify-content-center">
+                                            <table
+                                                class="table table-striped table-bordered align-items-center justify-content-center">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -189,12 +218,21 @@
                                                             <td><?= $i++; ?></td>
                                                             <td><?= $product['name'] ?></td>
                                                             <td><?= $productData['total_sold'] ?></td>
-                                                            <td>Rp. <?= number_format($totalProductPrice, 0, ',', '.'); ?></td>
+                                                            <td>Rp. <?= number_format($totalProductPrice, 0, ',', '.'); ?>
+                                                            </td>
+                                                            <?php
+                                                            if ($_SESSION['loggedInUser']['level'] == 'Admin') {
+                                                                ?>
+                                                                <td>
+                                                                    <a href="index-totalsold-delete.php?id=<?= $productId; ?>"
+                                                                        class="btn btn-danger">Hapus</a>
+                                                                </td>
+                                                            <?php } ?>
                                                         </tr>
                                                     <?php } ?>
-                                                    <tr>
-                                                        <td colspan="3" class="text-end"><b>Total Penghasilan:</b></td>
-                                                        <td><b>Rp. <?= number_format($totalIncome, 0, ',', '.') ?></b></td>
+                                                    <td colspan="3" class="text-end"><b>Total Penghasilan:</b></td>
+                                                    <td><b>Rp. <?= number_format($totalIncome, 0, ',', '.') ?></b>
+                                                    </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -209,4 +247,4 @@
         </div>
     </div>
 </div>
-<?php include('includes/footer.php'); ?>
+<?php include ('includes/footer.php'); ?>

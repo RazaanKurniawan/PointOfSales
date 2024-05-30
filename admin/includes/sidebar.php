@@ -3,38 +3,33 @@
 $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1);
 
 ?>
-<style>
-    .bg-c-blue{
-        background-color: #00BDFF;
-    }
-</style>
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark bg-success" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
+                <div class="sb-sidenav-menu-heading">Bagian Utama</div>
                 <a class="nav-link <?= $page == 'index.php' ? 'active' : ''; ?>" href="index.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Dashboard
+                    Beranda
                 </a>
                 <a class="nav-link <?= $page == 'orders-create.php' ? 'active' : ''; ?>" href="orders-create.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-bell"></i></div>
-                    Create Orders
+                    Buat Pesanan
                 </a>
                 <a class="nav-link <?= $page == 'orders.php' ? 'active' : ''; ?>" href="orders.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-                    Orders
+                    Pesanan
                 </a>
 
-                <div class="sb-sidenav-menu-heading">Interface</div>
+                <div class="sb-sidenav-menu-heading">Produk & Kategori</div>
 
                 <a class="nav-link <?= $page == 'categories.php' ? 'active' : ''; ?>" href="categories.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-box-open"></i></div>
-                    Categories
+                    Kategori
                 </a>
                 <a class="nav-link <?= $page == 'products.php' ? 'active' : ''; ?>" href="products.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-cube"></i></div>
-                    Products
+                    Produk
                 </a>
 
                 <!-- <a class="nav-link <?= ($page == 'categories-create.php') || ($page == 'categories.php') ? 'collapse active' : 'collapsed'; ?>"
@@ -72,18 +67,18 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                     </nav>
                 </div> -->
 
-                <div class="sb-sidenav-menu-heading">Manage Users</div>
+                <div class="sb-sidenav-menu-heading">Kelola Pengguna</div>
 
                 <a class="nav-link <?= $page == 'customers.php' ? 'active' : ''; ?>" href="customers.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                    Customers
+                    Pelanggan
                 </a>
                 <?php
                 if ($_SESSION['loggedInUser']['level'] == 'Admin') {
                     ?>
                 <a class="nav-link <?= $page == 'admin.php' ? 'active' : ''; ?>" href="admin.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
-                    Admin/Staff
+                    Administrator/Pekerja
                 </a>
                 <?php } ?>
 
@@ -129,7 +124,7 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
             </div>
         </div>
         <div class="sb-sidenav-footer bg-success">
-            <div class="small">Logged in as:</div>
+            <div class="small">Masuk sebagai:</div>
             <?= $_SESSION['loggedInUser']['nama'] ?> | <?= $_SESSION['loggedInUser']['level'] ?>
         </div>
     </nav>

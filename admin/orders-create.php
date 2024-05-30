@@ -36,7 +36,7 @@
 <div class="container-fluid px-4">
     <div class="card mt-4">
         <div class="card-header">
-            <h4 class="mb-0 text-center">Tambahkan Order
+            <h4 class="mb-0 text-center">Tambahkan Pesanan
                 <a href="customers.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
             </h4>
         </div>
@@ -87,7 +87,7 @@
             <form id="barcode-form" action="orders-code.php" method="POST">
                 <div class="row">
                     <div class="col-md-2 mb-3">
-                        <label for="">Scan Barcode</label>
+                        <label for="">Pindai Barcode</label>
                         <input type="text" name="product_code" id="barcode-input" class="form-control" autofocus>
                         <input type="hidden" name="quantity" value="1">
                     </div>
@@ -162,8 +162,8 @@
                             <label for="">Pilih Metode Pembayaran</label>
                             <select id="payment_mode" class="form-select">
                                 <option value="">-- Pilih Metode Pembayaran --</option>
-                                <option value="Cash Payment">Uang Tunai</option>
-                                <option value="Online Payment">Bayar Online</option>
+                                <option value="Uang Tunai">Uang Tunai</option>
+                                <option value="Bayar Online">Bayar Online</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">

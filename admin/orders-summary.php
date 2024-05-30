@@ -29,7 +29,7 @@ if (!isset($_SESSION['productItems'])) {
         <div class="col-md-12">
             <div class="card mt-4">
                 <div class="card-header">
-                    <h4 align="center">Summary <a href="orders-create.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to create order</a>
+                    <h4 align="center">Ringkasan <a href="orders-create.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali ke buat pesanan</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -58,7 +58,7 @@ if (!isset($_SESSION['productItems'])) {
                                 <tr>
                                     <td style="text-align: center; padding: 10px;" colspan="2">
                                         <h4 style="font-size: 23px; line-height: 30px; margin: 2px; padding: 0;">
-                                            Bussines Center SMK Fatahillah</h4>
+                                            Bussines Centre SMK Fatahillah</h4>
                                         <p style="font-size: 16px; line-height: 24px; margin: 2px; padding: 0;">Jl. Kp.
                                             Tengah, RT.06/RW.03, Cipeucang, Kec. Cileungsi, Kabupaten Bogor, Jawa Barat
                                             16820</p>
@@ -75,12 +75,9 @@ if (!isset($_SESSION['productItems'])) {
                                 <tr>
                                     <?php date_default_timezone_set('Asia/Jakarta'); ?>
                                     <td style="padding: 10px;" align="center" width="50%" valign="top">
-                                        <h5 style="font-size: 20px; line-height: 30px; margin: 0px; padding: 0;">Invoice
-                                            Details</h5>
-                                        <p style="font-size: 14px; line-height: 20px; margin: 0px; padding: 0;">Invoice
-                                                        No: <?= $invoiceNo; ?> </p>
-                                        <p style="font-size: 14px; line-height: 20px; margin:0px; padding: 0;">Invoice
-                                            Date: <?= date('d/m/Y H:i:s'); ?> </p>
+                                        <h5 style="font-size: 20px; line-height: 30px; margin: 0px; padding: 0;">Detail Nota</h5>
+                                        <p style="font-size: 14px; line-height: 20px; margin: 0px; padding: 0;">Nomor Nota: <?= $invoiceNo; ?> </p>
+                                        <p style="font-size: 14px; line-height: 20px; margin:0px; padding: 0;">Tanggal Nota: <?= date('d/m/Y H:i:s'); ?> </p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -106,12 +103,12 @@ if (!isset($_SESSION['productItems'])) {
                                 <table style="width: 100%; " cellpadding="5">
                                     <thead>
                                         <tr>
-                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="5%">ID</th>
-                                            <th align="start" style="border-bottom: 1px solid #ccc;">Product Name</th>
-                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Price</th>
-                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Quantity
+                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="5%">No.</th>
+                                            <th align="start" style="border-bottom: 1px solid #ccc;">Nama Produk</th>
+                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Harga</th>
+                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="10%">Jumlah
                                             </th>
-                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="15%">Total Price
+                                            <th align="start" style="border-bottom: 1px solid #ccc;" width="15%">Total Harga
                                             </th>
                                         </tr>
                                     </thead>
@@ -138,7 +135,7 @@ if (!isset($_SESSION['productItems'])) {
                                             </tr>
                                         <?php endforeach; ?>
                                         <tr>
-                                            <td colspan="4" align="end" style="font-weight: bold;">Grand Total:</td>
+                                            <td colspan="4" align="end" style="font-weight: bold;">Total Keseluruhan:</td>
                                             <td colspan="1" style="font-weight: bold;">
                                                 Rp. <?php echo number_format($totalAmount, 0, ',', '.'); ?>
                                             </td>
@@ -157,7 +154,7 @@ if (!isset($_SESSION['productItems'])) {
                                         </tr>
 
                                         <tr>
-                                            <td colspan="5">Payment Mode: <?php echo $_SESSION['payment_mode']; ?></td>
+                                            <td colspan="5">Metode Pembayaran: <?php echo $_SESSION['payment_mode']; ?></td>
                                         </tr>
                                     </tbody>
 
@@ -175,8 +172,8 @@ if (!isset($_SESSION['productItems'])) {
 
                     <?php if (isset($_SESSION['productItems'])) : ?>
                         <div class="mt-4 text-end">
-                            <button type="button" class="btn btn-primary px-4 mx-1" id="saveOrder"><i class="fa fa-upload" aria-hidden="true"></i> Save</button>
-                            <button class="btn btn-info px-4 mx-1" onclick="printMyBillingArea()"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+                            <button type="button" class="btn btn-primary px-4 mx-1" id="saveOrder"><i class="fa fa-upload" aria-hidden="true"></i> Simpan</button>
+                            <button class="btn btn-info px-4 mx-1" onclick="printMyBillingArea()"><i class="fa fa-print" aria-hidden="true"></i> Cetak</button>
                             <button type="button" onclick="downloadPDF('<?= $_SESSION['invoice_no'] ?>')" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i> Download
                                 PDF</button>
 

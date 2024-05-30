@@ -3,7 +3,7 @@
         <div class="card mt-4 shadow-sm">
             <div class="card-header text-center">
                 <h4 class="mb-0">
-                    Customers
+                    Pelanggan
                     <a href="customers-create.php" class="btn btn-primary float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Pelanggan</a>
                 </h4>
             </div>

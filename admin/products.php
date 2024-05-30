@@ -3,7 +3,7 @@
     <div class="card mt-4 shadow-sm">
         <div class="card-header text-center">
             <h4 class="mb-0">
-                Products
+                Produk
                 <a href="products-create.php" class="btn btn-primary float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Produk</a>
             </h4>
             <hr>

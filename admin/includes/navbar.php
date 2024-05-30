@@ -1,12 +1,9 @@
-<style>
-    .bg-c-blue {
-        background-color: #00BDFF;
-    }
+
 </style>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success shadow-sm">
     <!-- Navbar Brand-->
 
-    <a class="navbar-brand ps-3" href="index.php"><i class="fas fa-cash-register"></i> Point Of Sales</a>
+    <a class="navbar-brand ps-3" href="index.php"><i class="fas fa-cash-register"></i> Kasir Digital</a>
 
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">

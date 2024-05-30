@@ -3,8 +3,8 @@
 <div class="container-fluid px-4">
     <div class="card mt-4">
         <div class="card-header">
-            <h4 class="mb-0 text-center">Tambahkan Category
-                <a href="categories.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+            <h4 class="mb-0 text-center">Tambahkan Kategori
+                <a href="categories.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali</a>
             </h4>
         </div>
         <div class="card-body">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label for="">Description</label>
+                        <label for="">Deskripsi</label>
                         <textarea name="description" class="form-control" rows="3"></textarea>
                     </div>
 

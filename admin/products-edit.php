@@ -3,9 +3,9 @@
 <div class="container-fluid px-4">
     <div class="card mt-4">
         <div class="card-header">
-            <h4 class="mb-0 text-center">Edit Produk
+            <h4 class="mb-0 text-center">Ubah Produk
                 <a href="products.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left"
-                        aria-hidden="true"></i> Back</a>
+                        aria-hidden="true"></i> Kembali</a>
             </h4>
         </div>
         <div class="card-body">
