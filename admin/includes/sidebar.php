@@ -3,8 +3,15 @@
 $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1);
 
 ?>
+<style>
+    .bg-darkgreen {
+        background-color: #28B463;
+    }
+
+    ;
+</style>
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark bg-success" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sb-sidenav-dark bg-darkgreen" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Bagian Utama</div>
@@ -76,10 +83,10 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                 <?php
                 if ($_SESSION['loggedInUser']['level'] == 'Admin') {
                     ?>
-                <a class="nav-link <?= $page == 'admin.php' ? 'active' : ''; ?>" href="admin.php">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
-                    Administrator/Pekerja
-                </a>
+                    <a class="nav-link <?= $page == 'admin.php' ? 'active' : ''; ?>" href="admin.php">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+                        Administrator/Pekerja
+                    </a>
                 <?php } ?>
 
                 <!-- <a class="nav-link <?= ($page == 'customers-create.php') || ($page == 'customers.php') ? 'collapse active' : 'collapsed'; ?>"
@@ -123,6 +130,11 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
 
             </div>
         </div>
+        <style>
+            .bg-green {
+                background-color: #24DF00;
+            };
+        </style>
         <div class="sb-sidenav-footer bg-success">
             <div class="small">Masuk sebagai:</div>
             <?= $_SESSION['loggedInUser']['nama'] ?> | <?= $_SESSION['loggedInUser']['level'] ?>

@@ -76,7 +76,7 @@
                         <thead>
                             <tr>
                                 <th>Nomor Tracking</th>
-                                <th>Total Pembayaran</th>
+                                <th>Total Harga</th>
                                 <!-- <th>C Phone</th> -->
                                 <th>Tanggal Pemesanan</th>
                                 <th>Status Pemesanan</th>

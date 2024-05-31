@@ -4,7 +4,7 @@
         <div class="card-header text-center">
             <h4 class="mb-0">
                 Produk
-                <a href="products-create.php" class="btn btn-primary float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Produk</a>
+                <a href="products-create.php" class="btn btn-success float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Produk</a>
             </h4>
             <hr>
         </div>
@@ -70,7 +70,7 @@
                                         <span class="badge bg-success">Tersedia</span>
                                     <?php endif; ?>
                                     <div class="mt-3">
-                                        <a href="products-edit.php?id=<?= $item['id']; ?>" class="btn btn-primary btn-sl">
+                                        <a href="products-edit.php?id=<?= $item['id']; ?>" class="btn btn-success btn-sl">
                                             <i class="fa fa-pencil" aria-hidden="true"></i></a>
                                         <a href="products-delete.php?id=<?= $item['id']; ?>" class="btn btn-danger btn-sl"
                                             onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">

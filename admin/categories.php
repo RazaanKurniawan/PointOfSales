@@ -3,9 +3,9 @@
     <div class="card mt-4 shadow-sm">
         <div class="card-header text-center">
             <h4 class="mb-0">
-                Categories
-                <a href="categories-create.php" class="btn btn-primary float-end"><i class="fa fa-plus"
-                        aria-hidden="true"></i> Tambah Category</a>
+                Kategori Produk
+                <a href="categories-create.php" class="btn btn-success float-end"><i class="fa fa-plus"
+                        aria-hidden="true"></i> Tambah Kategori Produk</a>
             </h4>
         </div>
         <div class="card-body">
@@ -62,7 +62,7 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="categories-edit.php?id=<?= $item['id']; ?>" class="btn btn-primary btn-sm"><i
+                                        <a href="categories-edit.php?id=<?= $item['id']; ?>" class="btn btn-success btn-sm"><i
                                                 class="fa fa-pencil" aria-hidden="true"></i></a>
                                         <?php if($product_count_row['total'] <= 0): ?>
                                         <a href="categories-delete.php?id=<?= $item['id']; ?>" class="btn btn-danger btn-sm"><i

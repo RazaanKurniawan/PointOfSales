@@ -1,5 +1,4 @@
 
-</style>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-success shadow-sm">
     <!-- Navbar Brand-->
 

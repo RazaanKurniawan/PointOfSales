@@ -11,7 +11,7 @@ if (($_SESSION['loggedInUser']['level'] != 'Admin')) {
             <div class="card-header text-center">
                 <h4 class="mb-0">
                     Administrator/Pekerja
-                    <a href="admin-create.php" class="btn btn-primary float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Admin</a>
+                    <a href="admin-create.php" class="btn btn-success float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Admin</a>
                 </h4>
             </div>
             <div class="card-body">
@@ -67,7 +67,7 @@ if (($_SESSION['loggedInUser']['level'] != 'Admin')) {
                                         </td>
                                         <td>
                                             <a href="admin-edit.php?id=<?= $adminItem['id']; ?>"
-                                                class="btn btn-primary btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="admin-delete.php?id=<?= $adminItem['id']; ?>"
                                                 class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </td>

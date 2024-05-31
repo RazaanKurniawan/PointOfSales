@@ -4,7 +4,7 @@
             <div class="card-header text-center">
                 <h4 class="mb-0">
                     Pelanggan
-                    <a href="customers-create.php" class="btn btn-primary float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Pelanggan</a>
+                    <a href="customers-create.php" class="btn btn-success float-end"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Pelanggan</a>
                 </h4>
             </div>
             <div class="card-body">
@@ -50,7 +50,7 @@
                                         </td>
                                         <td>
                                             <a href="customers-edit.php?id=<?= $item['id']; ?>"
-                                                class="btn btn-primary btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                class="btn btn-success btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             <a href="customers-delete.php?id=<?= $item['id']; ?>"
                                                 class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Yakin ingin menghapus data ini?')"

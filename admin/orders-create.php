@@ -1,6 +1,7 @@
-<?php include('includes/header.php'); ?>
+<?php include ('includes/header.php'); ?>
 
-<div class="modal fade" id="addCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -37,7 +38,8 @@
     <div class="card mt-4">
         <div class="card-header">
             <h4 class="mb-0 text-center">Tambahkan Pesanan
-                <a href="customers.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+                <a href="customers.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left"
+                        aria-hidden="true"></i> Back</a>
             </h4>
         </div>
         <div class="card-body">
@@ -61,9 +63,10 @@
                             if ($result) {
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($prodItem = mysqli_fetch_assoc($result)) {
-                            ?>
-                                        <option value="<?= $prodItem['id'] ?>"><?= $prodItem['name'] ?> - <?= $prodItem['category'] ?></option>
-                            <?php
+                                        ?>
+                                        <option value="<?= $prodItem['id'] ?>"><?= $prodItem['name'] ?> -
+                                            <?= $prodItem['category'] ?></option>
+                                        <?php
                                     }
                                 } else {
                                     echo '<option value="">Produk tidak ditemukan!</option>';
@@ -80,7 +83,8 @@
                         <input type="number" name="quantity" value="1" required class="form-control">
                     </div>
                     <div class="col-md-3 mb-3 d-flex align-items-end">
-                        <button type="submit" name="addItem" class="btn btn-primary w-100"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Item</button>
+                        <button type="submit" name="addItem" class="btn btn-success w-100"><i class="fa fa-plus"
+                                aria-hidden="true"></i> Tambah Item</button>
                     </div>
                 </div>
             </form>
@@ -106,7 +110,7 @@
                     unset($_SESSION['productItemIds']);
                     unset($_SESSION['productItems']);
                 }
-            ?>
+                ?>
                 <div class="table-responsive mb-3" id="productContent">
                     <table class="table table-bordered table-striped align-items-center">
                         <thead>
@@ -122,10 +126,10 @@
                             <?php
                             $i = 1;
                             $subtotal = 0; // Initialize subtotal variable
-                            foreach ($sessionProducts as $key => $item) :
+                            foreach ($sessionProducts as $key => $item):
                                 $totalPrice = $item['price'] * $item['quantity'];
                                 $subtotal += $totalPrice; // Add each item's total price to subtotal
-                            ?>
+                                ?>
                                 <tr>
                                     <td><?= $i++; ?></td>
                                     <td>
@@ -136,14 +140,20 @@
                                         <div class="input-group qtyBox">
                                             <input type="hidden" value="<?= $item['product_id']; ?>" class="prodId">
                                             <button class="input-group-text decrement">-</button>
-                                            <input type="text" value="<?= $item['quantity']; ?>" class="qty form-control quantityInput">
+                                            <input type="text" value="<?= $item['quantity']; ?>"
+                                                class="qty form-control quantityInput">
                                             <button class="input-group-text increment">+</button>
                                         </div>
                                     </td>
                                     <td>Rp. <?= number_format($totalPrice, 0, ',', '.'); ?></td>
                                     <td>
-                                        <a class="noselect button" href="orders-item-delete.php?index=<?= $key; ?>"><span class="text">Delete</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                                    <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
+                                        <a class="noselect button" href="orders-item-delete.php?index=<?= $key; ?>"><span
+                                                class="text">Delete</span><span class="icon"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
+                                                    </path>
                                                 </svg></span></a>
                                     </td>
                                 </tr>
@@ -173,7 +183,8 @@
 
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-end">
-                            <button type="button" class="btn btn-warning w-100 proceedToPlace">Lanjutkan <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-warning w-100 proceedToPlace">Lanjutkan <i
+                                    class="fa fa-chevron-right" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </div>
@@ -184,29 +195,29 @@
     </div>
 </div>
 
-<?php include('includes/footer.php'); ?>
+<?php include ('includes/footer.php'); ?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const barcodeInput = document.getElementById('barcode-input');
 
         // Focus on the barcode input field on page load
         barcodeInput.focus();
 
-        barcodeInput.addEventListener(function() {
+        barcodeInput.addEventListener(function () {
             // Submit the form when input is detected
             document.getElementById('barcode-form').submit();
         });
 
         // Event listener for form submission to refocus the barcode input
-        document.getElementById('barcode-form').addEventListener('submit', function(event) {
+        document.getElementById('barcode-form').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent default form submission
 
             // Submit the form via AJAX
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'orders-code.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                     // Handle the response if necessary
                     console.log('Form submitted successfully');
@@ -221,5 +232,5 @@
             xhr.send(new URLSearchParams(new FormData(this)).toString());
         });
     });
-    
+
 </script>
