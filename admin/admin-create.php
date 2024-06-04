@@ -43,7 +43,7 @@ if (($_SESSION['loggedInUser']['level'] != 'Admin')) {
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="name2">Role</label>
-                        <select name="level" id="level" class="form-control">
+                        <select name="level" id="level" class="form-select">
                             <option value="Admin">Admin</option>
                             <option value="Staff">Staff</option>
                         </select>
