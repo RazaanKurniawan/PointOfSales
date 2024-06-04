@@ -15,7 +15,7 @@
                                         <h6 class="m-b-20">Total Kategori</h6>
                                         <h2 class="text-right">
                                             <i
-                                                class="fa fa-fw fas fa-box-open f-left"></i><span><?= getCount('categories'); ?></span>
+                                                class="fa fa-fw fas fa-cash-register f-left"></i><span><?= getCount('categories'); ?></span>
                                         </h2>
                                     </div>
                                 </div>

@@ -59,7 +59,7 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" href="assets/images/smkbg.png">
+    <link rel="icon" href="assets/images/color-logo.png">
 
     <!-- Themify Icons and FontAwesome -->
     <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">

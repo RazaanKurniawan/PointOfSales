@@ -57,7 +57,7 @@
                             <div class="card">
                                 <div class="text-center">
                                     <img src="../<?= $item['image']; ?>" class="card-img-top img-fluid" alt="..."
-                                        style="width: 118.23px; height: 130px;">
+                                        style="width: 200px; height: 200px; object-fit: contain;">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $item['name']; ?></h5>
