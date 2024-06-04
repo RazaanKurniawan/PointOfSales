@@ -48,11 +48,13 @@
                                     </td>
                                     <td>
                                         <?php
-                                        // Query untuk mengambil jumlah stok produk sesuai kategori
                                         $stock_result = mysqli_query($conn, "SELECT SUM(quantity) AS total_stock FROM products WHERE category_id = $category_id");
-                                        $stock_row = mysqli_fetch_assoc($stock_result);
-                                        echo $stock_row['total_stock'];
-                                        ?>
+                                        $stock_row = mysqli_fetch_assoc($stock_result); ?>
+                                        <?php if ($stock_row['total_stock'] <= 0): ?>
+                                            <p>0</p>
+                                        <?php else: ?>
+                                            <?= $stock_row['total_stock']; ?>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <?php if ($stock_row['total_stock'] <= 0): ?>
@@ -64,9 +66,9 @@
                                     <td>
                                         <a href="categories-edit.php?id=<?= $item['id']; ?>" class="btn btn-success btn-sm"><i
                                                 class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <?php if($product_count_row['total'] <= 0): ?>
-                                        <a href="categories-delete.php?id=<?= $item['id']; ?>" class="btn btn-danger btn-sm"><i
-                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <?php if ($product_count_row['total'] <= 0): ?>
+                                            <a href="categories-delete.php?id=<?= $item['id']; ?>" class="btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash" aria-hidden="true"></i></a>
                                         <?php else: ?>
                                             <button><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         <?php endif; ?>
