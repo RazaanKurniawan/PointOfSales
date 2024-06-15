@@ -143,22 +143,34 @@
                                                             $productId = $row['product_id'];
                                                             $productQuery = mysqli_query($conn, "SELECT * FROM products WHERE id=$productId");
                                                             $product = mysqli_fetch_assoc($productQuery);
-                                                            $productName = $product['name'];
-                                                            $totalSoldToday = $row['total_sold'];
-                                                            $totalSalesProductToday = $totalSoldToday * $product['price'];
-                                                            $totalSalesToday += $totalSalesProductToday; ?>
-                                                            <tr>
-                                                                <td><?= $i++ ?></td>
-                                                                <td><?= $productName ?></td>
-                                                                <td><?= $totalSoldToday ?></td>
-                                                                <td>Rp.
-                                                                    <?= number_format($totalSalesProductToday, 0, ',', '.') ?>
-                                                                </td>
-                                                            </tr>
-                                                        <?php } ?>
+
+                                                            if ($product) {
+                                                                $productName = $product['name'];
+                                                                $totalSoldToday = $row['total_sold'];
+                                                                $totalSalesProductToday = $totalSoldToday * $product['price'];
+                                                                $totalSalesToday += $totalSalesProductToday; ?>
+                                                                <tr>
+                                                                    <td><?= $i++ ?></td>
+                                                                    <td><?= $productName ?></td>
+                                                                    <td><?= $totalSoldToday ?></td>
+                                                                    <td>Rp.
+                                                                        <?= number_format($totalSalesProductToday, 0, ',', '.') ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } else { ?>
+                                                                <tr>
+                                                                    <td><?= $i++ ?></td>
+                                                                    <td>Produk telah dihapus</td>
+                                                                    <td><?= $row['total_sold'] ?></td>
+                                                                    <td>Rp. 0</td>
+                                                                </tr>
+                                                            <?php }
+                                                        } ?>
                                                         <tr>
-                                                            <td colspan="3" class="text-end"><b>Total Penghasilan Hari Ini:</b></td>
-                                                            <td><b>Rp. <?= number_format($totalSalesToday, 0, ',', '.') ?></b>
+                                                            <td colspan="3" class="text-end"><b>Total Penghasilan Hari
+                                                                    Ini:</b></td>
+                                                            <td><b>Rp.
+                                                                    <?= number_format($totalSalesToday, 0, ',', '.') ?></b>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -179,22 +191,66 @@
                                         <h3 class="text-center">Total Penjualan Seluruh Produk</h3>
                                     </div>
                                     <div class="card-body">
+
+                                        <!-- Date Filter Form -->
+                                        <form method="GET" action="">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label for="start_date">Mulai Tanggal</label>
+                                                        <input type="date" name="start_date" id="start_date" class="form-control" value="<?= isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label for="end_date">Sampai Tanggal</label>
+                                                        <input type="date" name="end_date" id="end_date" class="form-control" value="<?= isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group mt-4">
+                                                        <button type="submit" class="btn btn-primary mt-2"><i class="fa fa-search" aria-hidden="true"></i> Cari</button>
+                                                        <a href="index.php" class="btn btn-danger mt-2"><i class="fas fa-sync-alt"></i> Reset</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
                                         <?php
-                                        $query = "SELECT product_id, SUM(quantity) AS total_sold, price AS total_price FROM order_items GROUP BY product_id";
+                                        // Default date range is all time
+                                        $startDate = isset($_GET['start_date']) ? $_GET['start_date'] : '1970-01-01';
+                                        $endDate = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
+
+                                        $query = "SELECT product_id, SUM(quantity) AS total_sold, MAX(order_date) AS last_order_date FROM order_items WHERE DATE(order_date) BETWEEN '$startDate' AND '$endDate' GROUP BY product_id";
                                         $result = mysqli_query($conn, $query);
                                         $productsData = [];
                                         $totalIncome = 0;
 
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $productId = $row['product_id'];
-                                            if (!isset($productsData[$productId])) {
+                                            $productQuery = mysqli_query($conn, "SELECT * FROM products WHERE id = $productId");
+                                            $product = mysqli_fetch_assoc($productQuery);
+
+                                            if ($product) {
+                                                $productName = $product['name'];
+                                                $totalSold = $row['total_sold'];
+                                                $totalSalesProduct = $totalSold * $product['price'];
+                                                $totalIncome += $totalSalesProduct;
+
                                                 $productsData[$productId] = [
-                                                    'total_sold' => $row['total_sold'],
-                                                    'total_price' => $row['total_price']
+                                                    'name' => $productName,
+                                                    'total_sold' => $totalSold,
+                                                    'total_sales' => $totalSalesProduct,
+                                                    'last_order_date' => $row['last_order_date'],
+                                                ];
+                                            } else {
+                                                $productsData[$productId] = [
+                                                    'name' => 'Produk telah dihapus',
+                                                    'total_sold' => 0,
+                                                    'total_sales' => 0,
+                                                    'last_order_date' => null,
                                                 ];
                                             }
-                                            $totalProductPrice = $row['total_price'] * $row['total_sold'];
-                                            $totalIncome += $totalProductPrice;
                                         } ?>
                                         <div class="table-responsive">
                                             <table
@@ -202,37 +258,41 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
+                                                        <th>Tanggal</th>
                                                         <th>Produk</th>
                                                         <th>Terjual</th>
                                                         <th>Total Harga</th>
+                                                        <?php if ($_SESSION['loggedInUser']['level'] == 'Admin' || $_SESSION['loggedInUser']['level'] == 'Manajer'): ?>
+                                                        <th>Aksi</th>
+                                                        <?php endif; ?>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
                                                     $i = 1;
-                                                    foreach ($productsData as $productId => $productData) {
-                                                        $productQuery = mysqli_query($conn, "SELECT * FROM products WHERE id = $productId");
-                                                        $product = mysqli_fetch_assoc($productQuery);
-                                                        $totalProductPrice = $productData['total_price'] * $productData['total_sold']; ?>
+                                                    foreach ($productsData as $productId => $productData) { ?>
                                                         <tr>
                                                             <td><?= $i++; ?></td>
-                                                            <td><?= $product['name'] ?></td>
+                                                            <td><?= date('d M, Y', strtotime($productData['last_order_date'])) ?></td>
+                                                            <td><?= $productData['name'] ?></td>
                                                             <td><?= $productData['total_sold'] ?></td>
-                                                            <td>Rp. <?= number_format($totalProductPrice, 0, ',', '.'); ?>
+                                                            <td>Rp.
+                                                                <?= number_format($productData['total_sales'], 0, ',', '.'); ?>
                                                             </td>
                                                             <?php
-                                                            if ($_SESSION['loggedInUser']['level'] == 'Admin') {
+                                                            if ($_SESSION['loggedInUser']['level'] == 'Admin' || $_SESSION['loggedInUser']['level'] == 'Manajer'): 
                                                                 ?>
                                                                 <td>
                                                                     <a href="index-totalsold-delete.php?id=<?= $productId; ?>"
                                                                         class="btn btn-danger">Hapus</a>
                                                                 </td>
-                                                            <?php } ?>
+                                                            <?php endif; ?>
                                                         </tr>
                                                     <?php } ?>
-                                                    <td colspan="3" class="text-end"><b>Total Penghasilan:</b></td>
-                                                    <td><b>Rp. <?= number_format($totalIncome, 0, ',', '.') ?></b>
-                                                    </td>
+                                                    <tr>
+                                                        <td colspan="4" class="text-end"><b>Total Penghasilan:</b></td>
+                                                        <td><b>Rp. <?= number_format($totalIncome, 0, ',', '.') ?></b>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -241,6 +301,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

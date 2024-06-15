@@ -42,7 +42,7 @@ if (!isset($_SESSION['productItems'])) {
                         // if (isset($_SESSION['cphone'])) {
 
                         //     $phone = validate($_SESSION['cphone']);
-                            $invoiceNo = validate($_SESSION['invoice_no']);
+                        $invoiceNo = validate($_SESSION['invoice_no']);
 
                         //     $customerQuery = mysqli_query($conn, "SELECT * FROM customers WHERE phone = '$phone' LIMIT 1");
                         //     if ($customerQuery) {
@@ -174,6 +174,7 @@ if (!isset($_SESSION['productItems'])) {
                         <div class="mt-4 text-end">
                             <button type="button" class="btn btn-primary px-4 mx-1" id="saveOrder"><i class="fa fa-upload" aria-hidden="true"></i> Simpan</button>
                             <button class="btn btn-info px-4 mx-1" onclick="printMyBillingArea()"><i class="fa fa-print" aria-hidden="true"></i> Cetak</button>
+                            <!-- <a href="orders-pay.php" class="btn btn-outline-success">Bayar Sekarang!</a> -->
                             <button type="button" onclick="downloadPDF('<?= $_SESSION['invoice_no'] ?>')" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i> Download
                                 PDF</button>
 

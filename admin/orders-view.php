@@ -1,11 +1,13 @@
-<?php include('includes/header.php'); ?>
+<?php include ('includes/header.php'); ?>
 
 <div class="container-fluid px-4">
     <div class="card mt-4">
         <div class="card-header">
             <h4 class="mb-0 text-center">Lampiran Pesanan
-                <a href="orders-view-print.php?track=<?= $_GET['track'] ?>" class="btn btn-info mx-2 btn-sm float-end"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
-                <a href="orders.php" class="btn btn-danger mx-2 btn-sm float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali</a>
+                <a href="orders-view-print.php?track=<?= $_GET['track'] ?>"
+                    class="btn btn-info mx-2 btn-sm float-end"><i class="fa fa-print" aria-hidden="true"></i> Print</a>
+                <a href="orders.php" class="btn btn-danger mx-2 btn-sm float-end"><i class="fa fa-chevron-left"
+                        aria-hidden="true"></i> Kembali</a>
             </h4>
         </div>
         <div class="card-body">
@@ -19,7 +21,8 @@
                     <div class="text-center py-5">
                         <h5>Nomor Tracking Tidak Ditemukan!</h5>
                         <div>
-                            <a href="orders.php" class="btn btn-primary mt-4 w-25"><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali ke halaman pesanan</a>
+                            <a href="orders.php" class="btn btn-primary mt-4 w-25"><i class="fa fa-chevron-left"
+                                    aria-hidden="true"></i> Kembali ke halaman pesanan</a>
                         </div>
                     </div>
                     <?php
@@ -40,6 +43,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4>Detail Pesanan</h4>
+                                <label class="mb-1">
+                                    Nomor Invoice:
+                                    <span class="fw-bold"><?= $orderData['invoice_no']; ?></span>
+                                </label>
+                                <br>
                                 <label class="mb-1">
                                     Nomor Tracking:
                                     <span class="fw-bold"><?= $orderData['tracking_no']; ?></span>
@@ -90,25 +98,52 @@
                                 <tbody>
                                     <?php foreach ($orderItemsRes as $orderItemRow): ?>
                                         <tr>
-                                            <td><img src="<?= $orderItemRow['image'] != '' ? '../' . $orderItemRow['image'] : '/assets/images/no-img.jpg'; ?>" style="max-width: 100px; max-height: 100px;" alt="Img"></td>
+                                            <td><img src="<?= $orderItemRow['image'] != '' ? '../' . $orderItemRow['image'] : '/assets/images/no-img.jpg'; ?>"
+                                                    style="max-width: 100px; max-height: 100px;" alt="Img"></td>
                                             <td><?= $orderItemRow['name']; ?></td>
-                                            <td class=" text-center">Rp. <?= number_format($orderItemRow['orderItemPrice'], 0, ',', '.'); ?></td>
+                                            <td class=" text-center">Rp.
+                                                <?= number_format($orderItemRow['orderItemPrice'], 0, ',', '.'); ?>
+                                            </td>
                                             <td class=" text-center"><?= $orderItemRow['orderItemQuantity']; ?> Pcs</td>
-                                            <td class=" text-center">Rp. <?= number_format($orderItemRow['orderItemPrice'] * $orderItemRow['orderItemQuantity'], 0, ',', '.'); ?></td>
+                                            <td class=" text-center">Rp.
+                                                <?= number_format($orderItemRow['orderItemPrice'] * $orderItemRow['orderItemQuantity'], 0, ',', '.'); ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                     <tr>
                                         <td colspan="4" class="text-end fw-bold">Total Price:</td>
-                                        <td class="text-end fw-bold">Rp. <?= number_format($orderData['total_amount'], 0, ',', '.'); ?></td>
+                                        <td class="text-end fw-bold">Rp.
+                                            <?= number_format($orderData['total_amount'], 0, ',', '.'); ?>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="text-end fw-bold">Tunai:</td>
-                                        <td class="text-end fw-bold">Rp. <?= number_format($orderData['money'], 0, ',', '.'); ?></td>
+                                        <td class="text-end fw-bold">
+                                            Rp.
+                                            <?php
+                                            if ($orderData['payment_mode'] == "Bayar Online") {
+                                                echo number_format($orderData['total_amount'], 0, ',', '.');
+                                            } else if ($orderData['payment_mode'] == "Uang Tunai") {
+                                                echo number_format($orderData['money'], 0, ',', '.');
+                                            }
+                                            ?>
+                                        </td>
                                     </tr>
+
                                     <tr>
                                         <td colspan="4" class="text-end fw-bold">Kembalian:</td>
-                                        <td class="text-end fw-bold">Rp. <?= number_format($orderData['money'] - $orderData['total_amount'], 0, ',', '.'); ?></td>
+                                        <td class="text-end fw-bold">
+                                            Rp.
+                                            <?php
+                                            if ($orderData['payment_mode'] == "Bayar Online") {
+                                                echo "0";
+                                            } else if ($orderData['payment_mode'] == "Uang Tunai") {
+                                                echo number_format($orderData['money'] - $orderData['total_amount'], 0, ',', '.');
+                                            }
+                                            ?>
+                                        </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -133,4 +168,4 @@
         </div>
     </div>
 </div>
-<?php include('includes/footer.php'); ?>
+<?php include ('includes/footer.php'); ?>

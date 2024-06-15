@@ -57,37 +57,27 @@ $(document).ready(function(){
     // Tutor 15
 
     $(document).on('click', '.proceedToPlace', function(){
-        // console.log('proceedToPlace');
-
         var cphone = $('#cphone').val();
         var money = $('#money').val();
         var payment_mode = $('#payment_mode').val();
-
-        if(money == ''){
-            swal("Masukkan Nominal Bayar","Masukkan Nominal Yang Benar","warning");
-            return false;
-        }
-
+    
         if(payment_mode == ''){
             swal("Pilih Metode Pembayaran","Pilih Metode Pembayaran Kamu","warning");
             return false;
-
         }
-
-        // if(cphone == '' && !$.isNumeric(cphone)){
-
-        //     swal("Masukkan Nomor Telepon","Masukkan Nomor Telepon Yang Benar","warning");
-        //     return false;
-
-        // }
-
+    
+        if(payment_mode == 'Uang Tunai' && money == ''){
+            swal("Masukkan Nominal Yang Benar","Masukkan Nominal Yang Benar","warning");
+            return false;
+        }
+    
         var data = {
             'proceedToPlaceBtn': true,
             'money': money,
             'cphone': cphone,
             'payment_mode': payment_mode,
         };
-
+    
         $.ajax({
             type: "POST",
             url: "orders-code.php",
@@ -95,10 +85,12 @@ $(document).ready(function(){
             success: function (response){
                 var res = JSON.parse(response);
                 if(res.status == 200){
-                    window.location.href = "orders-summary.php";
-
+                    if(payment_mode == 'Bayar Online'){
+                        window.location.href = "orders-summary-onlinepay.php";
+                    } else if(payment_mode == 'Uang Tunai'){
+                        window.location.href = "orders-summary.php";
+                    }
                 }else if(res.status == 404){
-
                     swal(res.message, res.message, res.status_type, {
                         buttons: {
                             catch: {
@@ -110,24 +102,20 @@ $(document).ready(function(){
                     })
                     .then((value) => {
                         switch(value){
-
                             case "catch":
                                 $('#c_phone').val(cphone);
                                 $('#addCustomerModal').modal('show');
-                                // console.log('Pop the customer add modal');
                                 break;
                             default: 
                         }
                     });
-
                 }else{
                     swal(res.message, res.message, res.status_type)
                 }
-
             }
         });
-
     });
+    
     
     // Tutor 15
 

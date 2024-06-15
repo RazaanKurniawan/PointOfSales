@@ -2,6 +2,11 @@
 
 require '../config/function.php';
 
+if ($_SESSION['loggedInUser']['level'] != 'Admin' && $_SESSION['loggedInUser']['level'] != 'Manajer') {
+    echo '<script>window.location.href = "index.php";</script>';
+    exit();
+}
+
 $paraResult = checkParamId('id');
 if(is_numeric($paraResult)){
 

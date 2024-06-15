@@ -27,6 +27,10 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                     Pesanan
                 </a>
+                <a class="nav-link <?= $page == 'display-product.php' ? 'active' : ''; ?>" href="display-product.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-info-circle"></i></div>
+                    Detail Produk
+                </a>
 
                 <div class="sb-sidenav-menu-heading">Produk & Kategori</div>
 
@@ -38,6 +42,7 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                     <div class="sb-nav-link-icon"><i class="fas fa-cube"></i></div>
                     Produk
                 </a>
+                
 
                 <!-- <a class="nav-link <?= ($page == 'categories-create.php') || ($page == 'categories.php') ? 'collapse active' : 'collapsed'; ?>"
                     href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="false"
@@ -75,6 +80,11 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                 </div> -->
 
                 <div class="sb-sidenav-menu-heading">Kelola Pengguna</div>
+
+                <a class="nav-link <?= $page == 'login-history.php' ? 'active' : ''; ?>" href="login-history.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Riwayat Login
+                </a>
 
                 <a class="nav-link <?= $page == 'customers.php' ? 'active' : ''; ?>" href="customers.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>

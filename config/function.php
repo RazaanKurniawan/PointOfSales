@@ -200,11 +200,63 @@ function jsonResponse($status, $status_type, $message){
     return;
 }
 
-function cariProduct($keyword) {
+// function cariProduct($keyword) {
 
+//     global $conn;
+//     $keyword = validate($keyword);
+//     $query = "SELECT * FROM products WHERE category_id = $keyword";
+//     return mysqli_query($conn, $query);
+
+// }
+
+function searchProduct($keyword, $category_id, $stock_status) {
     global $conn;
-    $keyword = validate($keyword);
-    $query = "SELECT * FROM products WHERE category_id = $keyword";
-    return mysqli_query($conn, $query);
+    $sql = "SELECT * FROM products WHERE 1=1";
 
+    if ($keyword) {
+        $sql .= " AND (name LIKE '%$keyword%' OR product_code LIKE '%$keyword%')";
+    }
+
+    if ($category_id) {
+        $sql .= " AND category_id = '$category_id'";
+    }
+
+    if ($stock_status) {
+        if ($stock_status == 'tersedia') {
+            $sql .= " AND quantity > 0";
+        } elseif ($stock_status == 'habis') {
+            $sql .= " AND quantity <= 0";
+        }
+    }
+
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+
+
+function searchOrderProduct($keyword, $search) {
+    global $conn;
+    $query = "SELECT * FROM products WHERE 1";
+
+    if ($keyword) {
+        $query .= " AND category_id = '$keyword'";
+    }
+
+    if ($search) {
+        $query .= " AND name LIKE '%$search%'";
+    }
+
+    return mysqli_query($conn, $query);
+}
+
+// Fungsi pencatatan riwayat login
+function logLogin($adminId) {
+    
+}
+
+// Fungsi pencatatan riwayat logout
+function logLogout($adminId) {
+    global $conn;
+    $query = "UPDATE login_history SET logout_time = NOW() WHERE admin_id = '$adminId' AND logout_time IS NULL ORDER BY login_time DESC LIMIT 1";
+    return mysqli_query($conn, $query);
 }

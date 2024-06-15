@@ -1,4 +1,12 @@
-<?php include ('includes/header.php'); ?>
+<?php 
+include ('includes/header.php'); 
+
+// Cek apakah level pengguna adalah Admin atau Manajer
+if ($_SESSION['loggedInUser']['level'] != 'Admin' && $_SESSION['loggedInUser']['level'] != 'Manajer') {
+    echo '<script>window.location.href = "index.php";</script>';
+    exit();
+}
+?>
 
 <div class="container-fluid px-4">
     <div class="card mt-4">

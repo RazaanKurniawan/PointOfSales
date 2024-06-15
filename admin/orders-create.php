@@ -1,51 +1,57 @@
 <?php include ('includes/header.php'); ?>
 
-<div class="modal fade" id="addCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pelanggan</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label>Masukkan Nama Customer</label>
-                    <input type="text" id="c_name" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label>Masukkan Kelas Pelanggan</label>
-                    <input type="text" id="c_class" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label>Masukkan Nomor Telepon Pelanggan</label>
-                    <input type="number" id="c_phone" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label>Masukkan Email Pelanggan (optional)</label>
-                    <input type="email" id="c_email" class="form-control">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary saveCustomer">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container-fluid px-4">
     <div class="card mt-4">
         <div class="card-header">
             <h4 class="mb-0 text-center">Tambahkan Pesanan
-                <a href="customers.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left"
-                        aria-hidden="true"></i> Back</a>
+                <a href="customers.php" class="btn btn-danger float-end"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
             </h4>
         </div>
         <div class="card-body">
             <?php alertMessage(); ?>
-            <form action="orders-code.php" method="POST">
+            <form action="" method="get" id="searchForm">
                 <div class="row">
+                    <div class="col-md-6">
+                        <label for="filterCategory" class="form-label">Filter berdasarkan kategori:</label>
+                        <select class="form-select" id="filterCategory" name="keyword">
+                            <option value="">-- Pilih Kategori --</option>
+                            <?php
+                            $categories = getAll('categories');
+                            foreach ($categories as $category):
+                                ?>
+                                <option 
+                                value="<?= $category['id']; ?>"
+                                <?= isset($_GET['keyword']) && $_GET['keyword'] == $category['id'] ? 'selected':'';
+                                ?>
+                                ><?= $category['name']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="searchProduct" class="form-label">Cari Produk:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchProduct" name="search" placeholder="Masukkan kata kunci"
+                                value="<?= isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Cari</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="barcode-form" action="orders-code.php" method="POST">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                    <label for="">Pindai Barcode</label>
+                        <div class="form-group">
+                        <input type="text" name="product_code" id="barcode-input" class="form-control" placeholder="Scan Kode Produk" autofocus>
+                        <input type="hidden" name="quantity" value="1">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form action="orders-code.php" method="POST">    
+                <!-- <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="">Pilih Produk</label>
                         <?php
@@ -53,10 +59,8 @@
                         $query = "SELECT p.id, p.name, c.name as category 
                         FROM products p 
                         JOIN categories c ON p.category_id = c.id";
-
                         $result = mysqli_query($conn, $query);
                         ?>
-
                         <select name="product_id" class="form-select mySelect2">
                             <option value="">-- Pilih Produk --</option>
                             <?php
@@ -65,7 +69,8 @@
                                     while ($prodItem = mysqli_fetch_assoc($result)) {
                                         ?>
                                         <option value="<?= $prodItem['id'] ?>"><?= $prodItem['name'] ?> -
-                                            <?= $prodItem['category'] ?></option>
+                                            <?= $prodItem['category'] ?>
+                                        </option>
                                         <?php
                                     }
                                 } else {
@@ -76,26 +81,59 @@
                             }
                             ?>
                         </select>
-
                     </div>
                     <div class="col-md-2 mb-3">
                         <label for="">Kuantitas</label>
                         <input type="number" name="quantity" value="1" required class="form-control">
                     </div>
                     <div class="col-md-3 mb-3 d-flex align-items-end">
-                        <button type="submit" name="addItem" class="btn btn-success w-100"><i class="fa fa-plus"
-                                aria-hidden="true"></i> Tambah Item</button>
+                        <button type="submit" name="addItem" class="btn btn-success w-100"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Item</button>
                     </div>
-                </div>
-            </form>
-            <form id="barcode-form" action="orders-code.php" method="POST">
-                <div class="row">
-                    <div class="col-md-2 mb-3">
-                        <label for="">Pindai Barcode</label>
-                        <input type="text" name="product_code" id="barcode-input" class="form-control" autofocus>
-                        <input type="hidden" name="quantity" value="1">
+                </div> -->
+
+                <?php
+                // Mendapatkan nilai dari form pencarian
+                $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+                $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+                // Memanggil fungsi searchProduct() jika ada kata kunci pencarian
+                if ($keyword || $search) {
+                    $products = searchOrderProduct($keyword, $search);
+                } else {
+                    // Jika tidak ada kata kunci pencarian, tampilkan semua produk
+                    $products = getAll('products');
+                }
+
+                // Memeriksa apakah ada produk yang ditemukan
+                if ($products && mysqli_num_rows($products) > 0) {
+                    ?>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 ">
+                        <?php foreach ($products as $item): ?>
+                            <div class="col mb-4">
+                                <div class="card">
+                                    <div class="text-center">
+                                        <img src="../<?= !empty($item['image']) ? $item['image'] : 'assets/uploads/products/default.png' ?>"
+                                            class="card-img-top img-fluid" alt="..." style="width: 200px; height: 200px; object-fit: contain;">
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-center"><?= $item['name']; ?></h5>
+                                        <p class="card-text text-center">Harga: Rp.<?= number_format($item['price'], 0, ',', '.'); ?></p>
+                                        <div class="mt-3">
+                                                <button type="button" class="btn btn-success addItemBtn col-md-9" data-id="<?= $item['id']; ?>"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                </div>
+                <?php
+                } else {
+                    // Jika tidak ada produk yang ditemukan, tampilkan pesan
+                    ?>
+                    <h4 class="mb-0">Data tidak ditemukan!</h4>
+                <?php
+                }
+                ?>
             </form>
         </div>
     </div>
@@ -169,7 +207,7 @@
                     <div class="row">
                         <hr>
                         <div class="col-md-4 mb-3">
-                            <label for="">Pilih Metode Pembayaran</label>
+                            <label for="payment_mode">Pilih Metode Pembayaran</label>
                             <select id="payment_mode" class="form-select">
                                 <option value="">-- Pilih Metode Pembayaran --</option>
                                 <option value="Uang Tunai">Uang Tunai</option>
@@ -177,11 +215,11 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label>Bayar</label>
+                            <label for="money">Bayar</label>
                             <input type="hidden" id="cphone" class="form-control" value="">
-                            <input type="number" id="money" class="form-control" value="">
-
+                            <input type="number" id="money" class="form-control" value="" placeholder="Contoh: 5000" disabled>
                         </div>
+
                         <div class="col-md-4 mb-3 d-flex align-items-end">
                             <button type="button" class="btn btn-warning w-100 proceedToPlace">Lanjutkan <i
                                     class="fa fa-chevron-right" aria-hidden="true"></i></button>
@@ -196,41 +234,21 @@
 </div>
 
 <?php include ('includes/footer.php'); ?>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const barcodeInput = document.getElementById('barcode-input');
-
-        // Focus on the barcode input field on page load
-        barcodeInput.focus();
-
-        barcodeInput.addEventListener(function () {
-            // Submit the form when input is detected
-            document.getElementById('barcode-form').submit();
+    $(document).ready(function() {
+        $('#filterCategory').change(function() {
+            $('#searchForm').submit();
         });
 
-        // Event listener for form submission to refocus the barcode input
-        document.getElementById('barcode-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Submit the form via AJAX
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'orders-code.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                    // Handle the response if necessary
-                    console.log('Form submitted successfully');
-
-                    // Clear the input
-                    barcodeInput.value = '';
-
-                    // Refocus the input field
-                    barcodeInput.focus();
-                }
-            };
-            xhr.send(new URLSearchParams(new FormData(this)).toString());
+        $('.addItemBtn').click(function() {
+            var productId = $(this).data('id');
+            var form = $('<form action="orders-code.php" method="POST">' +
+                '<input type="hidden" name="product_id" value="' + productId + '">' +
+                '<input type="hidden" name="quantity" value="1">' +
+                '<input type="hidden" name="addItem" value="1">' +
+                '</form>');
+            $('body').append(form);
+            form.submit();
         });
     });
-
 </script>

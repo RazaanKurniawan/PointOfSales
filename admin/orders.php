@@ -1,4 +1,4 @@
-<?php include ('includes/header.php'); ?>
+<?php include('includes/header.php'); ?>
 
 <div class="container-fluid px-4">
     <div class="card mt-4 shadow-sm">
@@ -15,11 +15,11 @@
                                 <input type="date" name="date" class="form-control"
                                     value="<?= isset($_GET['date']) ? $_GET['date'] : ''; ?>" />
                             </div>
-                            <div class="col-md-3">
+                            <!-- <div class="col-md-3">
                                 <input type="text" name="tracking_no" class="form-control"
                                     placeholder="Cari nomor tracking"
                                     value="<?= isset($_GET['tracking_no']) ? $_GET['tracking_no'] : ''; ?>" />
-                            </div>
+                            </div> -->
                             <div class="col-md-3">
                                 <select name="payment_status" class="form-select">
                                     <option value="">Pilih Status Metode Pembayaran</option>
@@ -38,6 +38,10 @@
                                         '';
                                     ?>>Bayar Online</option>
                                 </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="invoice_no" class="form-control" placeholder="Cari nomor invoice"
+                                    value="<?= isset($_GET['invoice_no']) ? $_GET['invoice_no'] : ''; ?>" />
                             </div>
                             <div class="col-md-3">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"
@@ -69,6 +73,11 @@
                 $query .= " AND tracking_no LIKE '%$trackingNo%'";
             }
 
+            if (isset($_GET['invoice_no']) && !empty($_GET['invoice_no'])) {
+                $invoiceNo = validate($_GET['invoice_no']);
+                $query .= " AND invoice_no LIKE '%$invoiceNo%'";
+            }
+
             $orders = mysqli_query($conn, $query);
             if ($orders) {
                 if (mysqli_num_rows($orders) > 0) {
@@ -76,6 +85,7 @@
                     <table class="table table-striped table-bordered align-items-center justify-content-center">
                         <thead>
                             <tr>
+                                <th>Nomor Invoice</th>
                                 <th>Nomor Tracking</th>
                                 <th>Total Harga</th>
                                 <!-- <th>C Phone</th> -->
@@ -88,6 +98,7 @@
                         <tbody>
                             <?php foreach ($orders as $orderItem): ?>
                                 <tr>
+                                    <td class="fw-bold"><?= $orderItem['invoice_no'] ?></td>
                                     <td class="fw-bold"><?= $orderItem['tracking_no'] ?></td>
                                     <td>Rp. <?= number_format($orderItem['total_amount'], 0, ',', '.') ?></td>
                                     <!-- <td><?= $orderItem['phone'] ?></td> -->
@@ -127,4 +138,4 @@
         </div>
     </div>
 </div>
-<?php include ('includes/footer.php'); ?>
+<?php include('includes/footer.php'); ?>

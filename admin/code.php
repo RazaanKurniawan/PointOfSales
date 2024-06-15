@@ -116,7 +116,9 @@ if (isset($_POST['saveProduct'])) {
 
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
-    $status = isset($_POST['status']) == true ? 1 : 0;
+    $status = isset($_POST['status']) ? 1 : 0;
+
+    $defaultImage = null; // Path gambar default
 
     if ($_FILES['image']['size'] > 0) {
         $path = "../assets/uploads/products";
@@ -127,10 +129,10 @@ if (isset($_POST['saveProduct'])) {
         move_uploaded_file($_FILES['image']['tmp_name'], $path . "/" . $filename);
         $finalImage = "assets/uploads/products/" . $filename;
     } else {
-        $finalImage = '';
+        $finalImage = $defaultImage; // Gunakan gambar default jika tidak ada gambar yang diunggah
     }
 
-    $data = [
+    $data = [   
         'category_id' => $category_id,
         'name' => $name,
         'product_code' => $product_code,
@@ -149,6 +151,7 @@ if (isset($_POST['saveProduct'])) {
         redirect('products-create.php', 'Ada sesuatu yang salah!');
     }
 }
+
 if (isset($_POST['updateCategory'])) {
 
     $categoryId = validate($_POST['categoryId']);

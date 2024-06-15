@@ -22,6 +22,7 @@ require('config/function.php');
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="icon" href="admin/assets/images/color-logo.png">
     <title>POS System</title>
 </head>
 

@@ -32,6 +32,8 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
         <?= $page == 'products-create.php' ? 'Tambah Produk' : ''; ?>
         <?= $page == 'products-edit.php' ? 'Ubah Produk' : ''; ?>
         <?= $page == 'products.php' ? 'Produk' : ''; ?>
+        <?= $page == 'display-product.php' ? 'Detail Produk' : ''; ?>
+        <?= $page == 'orders-summary-onlinepay.php' ? 'Pembayaran Online' : ''; ?>
     </title>
 
     <!-- DataTables CSS -->

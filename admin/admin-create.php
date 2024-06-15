@@ -46,6 +46,7 @@ if (($_SESSION['loggedInUser']['level'] != 'Admin')) {
                         <select name="level" id="level" class="form-select">
                             <option value="Admin">Admin</option>
                             <option value="Staff">Staff</option>
+                            <option value="Owner">Owner</option>
                         </select>
                     </div>
                 </div>
