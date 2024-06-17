@@ -13,7 +13,7 @@ if (!isset($_SESSION['productItems'])) {
 // Set your Merchant Server Key
 \Midtrans\Config::$serverKey = 'Mid-client-HWVBymZi3_a0rNzA';
 // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-\Midtrans\Config::$isProduction = false;
+\Midtrans\Config::$isProduction = true;
 // Set sanitization on (default)
 \Midtrans\Config::$isSanitized = true;
 // Set 3DS transaction for credit card to true
@@ -85,7 +85,7 @@ $_SESSION['snapToken'] = $snapToken;
 
 
 <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-YN2f67vc-ivLxYPk"></script>
+<script src="https://app.midtrans.com/snap/snap.js" data-client-key="Mid-client-HWVBymZi3_a0rNzA"></script>
 <script type="text/javascript">
     document.getElementById('pay-button').onclick = function () {
         // SnapToken acquired from previous step
